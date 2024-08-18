@@ -1,0 +1,6 @@
+Pointer visualization:
+https://pythontutor.com/cpp.html#mode=edit
+
+For past papers:
+1. https://github.com/saleha-muzammil/Academic-Time-Machine/tree/main/OOP
+2. https://www.wondar.site

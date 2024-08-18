@@ -1,0 +1,219 @@
+cout << "Press any key to continue";
+	getchar();
+
+you can use it as a delay in your programs
+/////////////////////////////////////////////////////////////////////////////////
+Declaration of 2d array
+int **matrix=new int *[rows]//matrix of int pointers
+for(int i=0 ; i<rows;i++)
+{
+matrix[i]=new int [columns];
+}
+/////////////////////////////////////////////////////////////////////////////////
+
+std::cout<<"Displaying  matrix at row "<<row<<" and "<<column<<*(*(matrix+row)+columns);
+
+/////////////////////////////////////////////////////////////////////////////////
+
+***(((matrix+i)+j)+k);//offset notation
+
+/////////////////////////////////////////////////////////////////////////////////
+
+matrix[i][j][k];//subscrpit notation
+
+/////////////////////////////////////////////////////////////////////////////////
+
+//deallocation of the double pointer arrays
+for(int i=0 ; i<rows;i++)
+{
+ delete []matrix [i];
+}
+delete []matrix;
+
+/////////////////////////////////////////////////////////////////////////////////
+
+//input in cstringarray built with char;
+cin.getline(inputarrayname,inputarraysize);
+
+/////////////////////////////////////////////////////////////////////////////////
+
+//input in string;
+getline(cin,stringname);
+
+///////////////////////////////////////CLASSES///////////////////////////////////
+
+class scope starts after writing the keyword class
+
+private,public and private are access specifier.
+
+class scope ends at the the bracket of body of class eded with sattement terminator
+
+if we are printing inside the main function dot is the member function operator.
+such as rec.print();                 --------------->(".") Dot used is called member function operator
+
+
+class A                               --------------->class keyword
+{                                     --------------->class scope started 
+private :                             --------------->access specifier
+int a;
+public:
+A();
+print(){std::cout<<"value of a is "<<a;}-------------->member function
+};                                     --------------->class scope ended
+A::A(){}                              --------------->("::")Scope resolution operator
+
+Scope Resolution Operator binds this function with class scope.
+A class with its own name  is called constructor
+
+// Properties of Constructor:
+// 1- Name of constructor is same as class
+// 2- No return type
+// 3- Implicit Call Only
+// 4- Access is always public
+
+constructor with the parameters are called overloaded constructor.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!((NOTE))!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+if you create an overloaded constructor you must create a default constructor too...otherwise you will get 
+a compiler error coz when you create a overloaded contstructor compiler cannot create it by itself such as
+is do when there is no overloaded constructor the compiler creates one by itself............
+
+// Copy constructor:in which we pass a same classs to an overloaded constructor to copy it in the inside the new 
+objects
+Rectangle::Rectangle(const Rectangle& other)
+{
+	cout << "\n\n\nCopy Constructor Called\n\n\n";
+	lenght = other.lenght;
+	width = other.width;
+}
+
+~Rectangle();	//Class can have only one destructor, without any parameters. Note the name and return type of destructor (~ Tilde Sign)
+};
+//Destructor's Properties:
+// 1- No Parameters
+// 2- No Return Type
+// 3- Implicit Call ONLY
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+STATIC MEMBER:
+//Properties of Static Members
+//Each object has its own copy of all the non-static data.
+//If we want one copy of a variable to be shared by all the objects, make it static
+// Static data is class-wide information.
+//static data has class scope
+//must be initialized exactly once
+
+//Static member function does not get "this" in function call
+//Static member function cannot access any non-static member. Why?
+
+//No this Pointer: Non-static member functions in C++ have an implicit parameter called this,
+ which is a pointer to the object that the member function is operating on. This allows non-static
+ member functions to access the data members and other member functions of the object.
+
+//Class-Wide Scope: Static member functions, on the other hand, belong to the class itself rather 
+than individual objects. They are not associated with any specific object, so there is no this pointer
+available inside them. Without a this pointer,static member functions cannot access non-static members
+because they don't have a specific object's context.
+
+//Data Sharing: Static member functions are designed to work with static data members and perform 
+operations that are not tied to any specific object's state. They provide class-wide functionality 
+and can access only static data members or other static member functions, ensuring data sharing
+among all instances of the class.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+FRIEND FUNCTION:
+
+//friend functions can directly access private data of class
+	friend ostream& operator<<(ostream&, const ComplexNumber&);// overloaded stream insertion operator
+	friend istream& operator>>(istream&, ComplexNumber&);// overloaded stream extraction operator
+	//These functions are friends of our class
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+ EXTRACTION AND INSERTION OPERATOR:
+
+
+//operator<< is a global function. This is not a member function of class
+//overloaded stream insertion operator
+ostream& operator<<(ostream& out, const ComplexNumber& obj)
+{
+	out << obj.real;		//Can we read/write private data in this function?
+	if (obj.imaginary >= 0)
+		out << "+";
+	out << obj.imaginary << "i";
+	return out;	// to enable cascading
+}
+
+
+//operator>> is a global function. This is not a member function of class
+//overloaded stream extraction operator
+istream& operator>>(istream& in, ComplexNumber& obj)
+{
+	cout<<"Input Real:\t";
+	in >> obj.real;			//Can we read/write private data in this function?
+	cout<<"Input Imaginary:\t";
+	in >> obj.imaginary;
+	return in;	// to enable cascading
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+MEMBER INITIALIZERS LIST 
+
+ComplexNumber(int r=0, int i=0): real(r), imaginary(i)
+	{
+		Output();
+	}
+
+They are written after the end of bracket followed by colon and written before the parenthesis
+of function or construstor
+///////////////////////////////////////////////////////////////////////////////////////////////////
+protectedData;	//Directly accessible in Child Classes, Inaccessible publicly.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+ASSOCIATION:
+
+ Association can be one-to-one, one-to-many, many-to-one, many-to-many.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+COMPOSITION:
+we initialize as its attribute in the class
+HAS-A relation
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+INHERITENCE:
+//IS-A Relationship. Examples.
+//Derived class cannot directly access private members of Base Class, though it has all those with it.
+// After inheritence, child class has attributes and methods of parent and itself
+//Function Overloading (Same name different parameters) vs Function Overriding (same name same parameters)
+/////////////////////////////////////////////////////////////////////////////////////////////////
+1.Dependency
+
+(use-a)
+
+2. Association
+
+(use-a)
+
+3. Aggregation
+
+(has-a)
+
+4. Composition
+
+(whole-part)
+
+5. Inheritance
+
+(is-a)
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+EXCEPTIONS:
+1.bad_alloc
+2.out_of_range
+3.runtime_error
+4.exception&ex
+////////////////////////////////////////////////////////
+class DivideByZeroException : public std::runtime_error
+{
+public:
+	DivideByZeroException() : std::runtime_error("Program attempted to divide by zero"){}
+	~DivideByZeroException(){ cout << "~DivideByZeroException().\n"; }
+};
+5.DivideByZeroException &ex
